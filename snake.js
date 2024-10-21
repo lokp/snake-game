@@ -96,3 +96,42 @@ function resetGame() {
 }
 
 gameLoop();
+const startButton = document.getElementById("startButton");
+const settingsButton = document.getElementById("settingsButton");
+const restartButton = document.getElementById("restartButton");
+
+let isGameRunning = false;
+let gameInterval;
+
+startButton.addEventListener("click", () => {
+  if (!isGameRunning) {
+    gameLoop();
+    isGameRunning = true;
+  }
+});
+
+settingsButton.addEventListener("click", () => {
+  alert("Settings feature is coming soon!");
+});
+
+restartButton.addEventListener("click", () => {
+  clearInterval(gameInterval); // Stop current game
+  resetGame(); // Reset the game state
+  gameLoop(); // Start the game again
+  isGameRunning = true;
+});
+
+function gameLoop() {
+  gameInterval = setInterval(() => {
+    if (isGameOver) {
+      alert("Game Over! Your score: " + score);
+      resetGame();
+      return;
+    }
+    clearCanvas();
+    drawFood();
+    moveSnake();
+    drawSnake();
+    checkCollision();
+  }, speed);
+}
